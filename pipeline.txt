@@ -1,0 +1,4 @@
+Een pipeline is een specifieke, lineaire reeks van geautomatiseerde stappen. Je kunt het zien als een lopende band voor code:
+- Build: De code wordt gecompileerd.
+- Test: Geautomatiseerde tests worden uitgevoerd.
+- Deploy: De code wordt vrijgegeven op een server.

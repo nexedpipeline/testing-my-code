@@ -1,0 +1,29 @@
+{
+  "name": "test-my-code",
+  "version": "1.0.0",
+  "description": "Testing with Ava",
+  "type":"module",
+  "keywords": [
+    "ci",
+    "ava",
+    "testing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.nexed.com/3b/3b91eac9-2c24-4c4a-983c-220fd5f0b095"
+  },
+  "license": "ISC",
+  "author": "Nexy",
+  "main": "testJs.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^6.4.1"
+  }
+}

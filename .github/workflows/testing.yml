@@ -19,56 +19,58 @@ jobs:
                   echo "3. Lokale variabele: ${{ env.JOB_VAR }}"
                   echo "4. Standaard variabele (Job ID): $GITHUB_JOB"
 
-    test-job-js:
+    test-job-ava:
         runs-on: ubuntu-latest
         needs: print-job
 
-        # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
             image: node:25.2.1-alpine3.21
 
         steps:
-            # Stap 1: Check de code uit zodat de runner erbij kan
-            - name: 'Checkout code'
+            - name: 'Code uitchecken'
               uses: actions/checkout@v4
 
-            # Stap 2: Voer het script uit met node
-            - name: 'Run js file'
-              run: node app.js
+            - name: 'Afhankelijkheden installeren'
+              run: npm install
 
-    test-job-python:
+            - name: 'Unittests uitvoeren met Ava'
+              run: npx ava
+
+    test-job-pytest:
         runs-on: ubuntu-latest
         needs: print-job
 
         # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
             image: python:3.15-rc-alpine3.22
+            # image: paketobuildpacks/pip:0.24.8
 
         steps:
-            # Stap 1: Check de code uit zodat de runner erbij kan
-            - name: 'Checkout code'
-              uses: actions/checkout@v4
+          - name: 'Checkout code'
+            uses: actions/checkout@v4
 
-            # Stap 2: Voer het script uit met python
-            - name: 'Run python file'
-              run: python app.py
+          - name: 'Install dependencies'
+            run: pip install -r requirements.txt
 
-    test-job-php:
+          - name: 'Run tests with pytest'
+            run: pytest tests/test_python.py
+
+    test-job-composer:
         runs-on: ubuntu-latest
         needs: print-job
 
-        # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
-            image: php:8.3.28-alpine3.22
+            image: composer:2.9.2
 
         steps:
-            # Stap 1: Check de code uit zodat de runner erbij kan
-            - name: 'Checkout code'
-              uses: actions/checkout@v4
+          - name: 'Code uitchecken'
+            uses: actions/checkout@v4
 
-            # Stap 2: Voer het script uit met php
-            - name: 'Run PHP file'
-              run: php app.php
+          - name: 'Afhankelijkheden installeren'
+            run: composer install
+
+          - name: 'Unittests uitvoeren met PHPUnit'
+            run: ./vendor/bin/phpunit tests
 
     build-job:
         runs-on: ubuntu-latest

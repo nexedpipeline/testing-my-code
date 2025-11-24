@@ -1,1 +1,0 @@
-console.log("JavaScript script succesvol uitgevoerd in de CI workflow!");

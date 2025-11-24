@@ -74,7 +74,7 @@ jobs:
 
     build-job:
         runs-on: ubuntu-latest
-        needs: test-job-composer, test-job-ava, test-job-pytest
+        needs: [test-job-composer, test-job-ava, test-job-pytest]
         steps:
             - name: 'Simuleer een build'
               run: echo "Stap 3. De applicatie wordt gebouwd."

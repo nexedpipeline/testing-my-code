@@ -22,19 +22,19 @@ jobs:
         runs-on: ubuntu-latest
         needs: print-job # Afhankelijkheid wordt hier gedefinieerd
         steps:
-          - name: 'Simuleer een test'
-            run: echo "Stap 2: De code wordt nu getest."
+            - name: 'Simuleer een test'
+              run: echo "Stap 2: De code wordt nu getest."
 
     build-job:
         runs-on: ubuntu-latest
         needs: test-job
         steps:
-          - name: 'Simuleer een build'
-            run: echo "Stap 3: De applicatie wordt gebouwd."
+            - name: 'Simuleer een build'
+              run: echo "Stap 3: De applicatie wordt gebouwd."
 
     deploy-job:
         runs-on: ubuntu-latest
         needs: build-job
         steps:
-          - name: 'Simuleer een deployment'
-            run: echo "Stap 4: De applicatie wordt gedeployed!"
+            - name: 'Simuleer een deployment'
+              run: echo "Stap 4: De applicatie wordt gedeployed!"

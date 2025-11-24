@@ -1,0 +1,1 @@
+print("Python script succesvol uitgevoerd in de CI workflow!")

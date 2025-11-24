@@ -1,0 +1,82 @@
+name: "Testing Workflow"
+
+on: [push]
+
+env:
+    WORKFLOW_VAR: "Ik ben een globale workflow variabele"
+
+jobs:
+    print-job:
+        runs-on: ubuntu-latest
+        env:
+            JOB_VAR: "Ik ben een lokale job variabele"
+        steps:
+            - name: "Toon alle variabelen"
+              run: |
+                  echo "Stap 1. Variabelen worden getoond"
+                  echo "1. Dit is een hardcoded string."
+                  echo "2. Globale variabele: ${{ env.WORKFLOW_VAR }}"
+                  echo "3. Lokale variabele: ${{ env.JOB_VAR }}"
+                  echo "4. Standaard variabele (Job ID): $GITHUB_JOB"
+
+    test-job-js:
+        runs-on: ubuntu-latest
+
+        # Specificeert de Docker container waarin de stappen worden uitgevoerd
+        container:
+            image: node:25.2.1-alpine3.21
+
+        steps:
+            # Stap 1: Check de code uit zodat de runner erbij kan
+            - name: 'Checkout code'
+              uses: actions/checkout@v4
+
+            # Stap 2: Voer het script uit met node
+            - name: 'Run js file'
+              run: node app.js
+
+    test-job-python:
+        runs-on: ubuntu-latest
+
+        # Specificeert de Docker container waarin de stappen worden uitgevoerd
+        container:
+            image: python:3.15-rc-alpine3.22
+
+        steps:
+            # Stap 1: Check de code uit zodat de runner erbij kan
+            - name: 'Checkout code'
+              uses: actions/checkout@v4
+
+            # Stap 2: Voer het script uit met python
+            - name: 'Run python file'
+              run: python app.py
+
+    test-job-php:
+        runs-on: ubuntu-latest
+
+        # Specificeert de Docker container waarin de stappen worden uitgevoerd
+        container:
+            image: php:8.3.28-alpine3.22
+
+        steps:
+            # Stap 1: Check de code uit zodat de runner erbij kan
+            - name: 'Checkout code'
+              uses: actions/checkout@v4
+
+            # Stap 2: Voer het script uit met php
+            - name: 'Run PHP file'
+              run: php app.php
+
+    build-job:
+        runs-on: ubuntu-latest
+        needs: test-job
+        steps:
+            - name: 'Simuleer een build'
+              run: echo "Stap 3. De applicatie wordt gebouwd."
+
+    deploy-job:
+        runs-on: ubuntu-latest
+        needs: build-job
+        steps:
+            - name: 'Simuleer een deployment'
+              run: echo "Stap 4. De applicatie wordt gedeployed!"

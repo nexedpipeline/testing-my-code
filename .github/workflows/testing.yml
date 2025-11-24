@@ -21,6 +21,7 @@ jobs:
 
     test-job-js:
         runs-on: ubuntu-latest
+        needs: print-job
 
         # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
@@ -37,6 +38,7 @@ jobs:
 
     test-job-python:
         runs-on: ubuntu-latest
+        needs: print-job
 
         # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
@@ -53,6 +55,7 @@ jobs:
 
     test-job-php:
         runs-on: ubuntu-latest
+        needs: print-job
 
         # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
@@ -69,7 +72,7 @@ jobs:
 
     build-job:
         runs-on: ubuntu-latest
-        needs: test-job
+        needs: test-job-php
         steps:
             - name: 'Simuleer een build'
               run: echo "Stap 3. De applicatie wordt gebouwd."

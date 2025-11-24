@@ -42,7 +42,7 @@ jobs:
 
         # Specificeert de Docker container waarin de stappen worden uitgevoerd
         container:
-            image: python:3.15-rc-alpine3.22
+            image: python:3.14.0-alpine3.22
             # image: paketobuildpacks/pip:0.24.8
 
         steps:

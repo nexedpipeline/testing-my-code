@@ -13,6 +13,7 @@ jobs:
         steps:
             - name: "Toon alle variabelen"
               run: |
+                  echo "Stap 1. Variabelen worden getoond"
                   echo "1. Dit is een hardcoded string."
                   echo "2. Globale variabele: ${{ env.WORKFLOW_VAR }}"
                   echo "3. Lokale variabele: ${{ env.JOB_VAR }}"
@@ -23,18 +24,18 @@ jobs:
         needs: print-job # Afhankelijkheid wordt hier gedefinieerd
         steps:
             - name: 'Simuleer een test'
-              run: echo "Stap 2: De code wordt nu getest."
+              run: echo "Stap 2. De code wordt nu getest."
 
     build-job:
         runs-on: ubuntu-latest
         needs: test-job
         steps:
             - name: 'Simuleer een build'
-              run: echo "Stap 3: De applicatie wordt gebouwd."
+              run: echo "Stap 3. De applicatie wordt gebouwd."
 
     deploy-job:
         runs-on: ubuntu-latest
         needs: build-job
         steps:
             - name: 'Simuleer een deployment'
-              run: echo "Stap 4: De applicatie wordt gedeployed!"
+              run: echo "Stap 4. De applicatie wordt gedeployed!"

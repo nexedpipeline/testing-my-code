@@ -1,0 +1,44 @@
+name: "Gestructureerde Workflow"
+
+on: [push]
+
+# Hier definieer je een globale variabele die beschikbaar is in alle jobs
+env:
+    WORKFLOW_VAR: "Ik ben een globale workflow variabele"
+
+jobs:
+    print-job:
+        runs-on: ubuntu-latest
+        env:
+            JOB_VAR: "Ik ben een lokale job variabele"
+
+        steps:
+            - name: "Toon alle variabelen"
+              run: |
+                  echo "1. Dit is een hardcoded string."
+                  echo "2. Globale variabele: ${{ env.WORKFLOW_VAR }}"
+                  echo "3. Lokale variabele: ${{ env.JOB_VAR }}"
+                  echo "4. Standaard variabele (Job ID): $GITHUB_JOB"
+
+    test-job:
+        runs-on: ubuntu-latest
+        needs: print-job # Afhankelijkheid wordt hier gedefinieerd
+        steps:
+          - name: 'Simuleer een test'
+            run: echo "Stap 2: De code wordt nu getest."
+
+    # Deze job wacht op 'test-job'.
+    build-job:
+        runs-on: ubuntu-latest
+        needs: test-job
+        steps:
+          - name: 'Simuleer een build'
+            run: echo "Stap 3: De applicatie wordt gebouwd."
+
+    # Deze job wacht op 'build-job' en is dus de laatste in de reeks.
+    deploy-job:
+        runs-on: ubuntu-latest
+        needs: build-job
+        steps:
+          - name: 'Simuleer een deployment'
+            run: echo "Stap 4: De applicatie wordt gedeployed!"
